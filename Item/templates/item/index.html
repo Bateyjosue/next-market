@@ -56,41 +56,19 @@
             </button>
         </div>
     <main class="container-fluid w-lg-100 w-100">
-     <!-- <div id="slider" style="height: 250px; width: 100%; background: #1D3461; padding: 0px;">
-            <div>
-                <p class="fs-2 fs-sm-6" style="color: aliceblue; padding: 10px;">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo quae dignissimos eius aspernatur sed, 
-                    alias maxime omnis voluptatem velit maiores similique iusto deleniti hic, ad voluptatum est perferendis 
-                    earum eveniet? Quod fugiat ipsa ipsam, eius totam ratione voluptatibus cupiditate enim earum voluptas, 
-                    iusto reprehenderit nisi iste, neque distinctio necessitatibus beatae.
-                </p>
-                <button class="btn  rounded-0" style="background: #FF5B13;margin-left:10px; color: white;">Learn More</button>
-            </div>
-        </div> -->
         <div class="category">
             <div class="h3">
                 Category ads
             </div>
-
-            <!-- <div class="row" style="display:flex; overflow-x: scroll; ">
-                {% for category in cat %}
-                <div class="col-4 col-lg-2 category-item">
-                    <img src="{{category.icon.url}}" alt="" width="80" height="80">
-                    <h6 class=""><a href="category/{{category.id}}">{{category.name}}</a></h6>
-                </div>
-                {% if category.len == 10 %}
-                {% endif %}
-                {% endfor block %}
-            </div> -->
-
             <div class="category" style=" display:flex; overflow-x: auto;">
                 {% for category in cat %}
                 <div class="category-item">
-                    <img src="{{category.icon.url}}" alt="" width="80" height="80">
+                    <a href="category/{{category.id}}">
+                        <img src="{{category.icon.url}}" alt="" width="40" height="40">
+                    </a>
                     <div>
                         <h6 class=""><a href="category/{{category.id}}">{{category.name|truncatechars:18}}</a></h6>
                     </div>
-                    
                 </div>
                 {% if category.len == 10 %}
                 {% endif %}
@@ -213,9 +191,6 @@
                                             <i class="envelope icon" ></i>
                                         </div>
                                 </div>
-                                <!-- <a href="">
-                                    <input type="text" placeholder="Add Comment..." class="">
-                                </a> -->
                             </div>
                             </div>
                         </div>
