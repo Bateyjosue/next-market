@@ -1,0 +1,1 @@
+web: gunicorn nextMarket.wsgi --log-file -
