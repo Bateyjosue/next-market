@@ -1,0 +1,72 @@
+{% extends 'partial/base.html' %}
+{% block content%}
+<main>
+    <div class="container mt-5 w-md-100 w-lg-50 w-lg-50 m-lg-auto">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>
+            {% if messages %}
+				{% for message in messages %}
+					<ul class="messages">
+						<li {% if nessage.tags %} class="{{message.tags}} bg-success fw-normal" {% endif%}>
+							{{message}}
+						</li>
+					</ul>
+                {% empty%}
+                      
+                {% endfor %}
+            {% endif %}
+        </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+        <div class="ui small comments">
+            <h3 class="ui dividing header">Messages</h3>
+            {% for chat in chat %}
+              {% if chat.sender == request.user or chat.receiver == request.user %}
+            <div class="comment">
+              <a class="avatar">
+                <img src="{{chat.sender.picture.url}}" class=" rounded-pill" alt="" style="width: 35px; height: 35px">
+              </a>
+              <div class="content">
+                <a class="author">{{chat.sender.last_name}}-{{chat.sender.first_name}}</a>
+                <div class="metadata">
+                  <span class="date">{{chat.received_at|timesince:chat.received_at}}</span>
+                </div>
+                <div class="text">
+                  {{chat.message}}
+                </div>
+                <div class="actions">
+                  <a class="reply">Reply to {{chat.pk}}</a>
+                </div>
+              </div>
+            </div>
+            {% endif%}
+            {% empty %}
+            <div class="ui icon message">
+              <i class="inbox icon"></i>
+              <div class="content">
+                <div class="header">
+                  Inbox message will be over here!!!
+                </div>
+                <p>Oooops! There no message founf yet.</p>
+              </div>
+            </div>
+            {% endfor %}
+            <form class="ui reply form" method="post" action="{% url 'Item:message' %}">
+              {% csrf_token %}
+              <div class="ui left icon input disabled">
+                <input type="text" placeholder="" class="" name="receiver" value="{{chat.lsat.id}}"> 
+                <!-- <i class="user icon"></i> -->
+              </div>
+              <div class="field">
+                <textarea name="message"></textarea>
+              </div>
+              <div class="ui blue labeled submit icon " >
+                <button class="ui primary button"  type="submit"> 
+                  <i class="icon edit"></i> Add Reply
+                </button>
+                
+              </div>
+            </form>
+    </div>
+</main>
+{% endblock %}

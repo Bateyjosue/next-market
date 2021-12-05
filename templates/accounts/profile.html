@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %} 
+{%block title %}Profile {% endblock  %}
+{% block content%}
+<style>
+    .row{
+
+    }
+    .row > div:first-child{
+        background-image: url('{% static "images/2.jpg" %}');
+        background-position: center;
+        background-size: cover;
+        background-attachment: scroll;
+        height: 35vh;
+        border-bottom: 0px solid #000;
+    }
+    .row > div:last-child{
+        height: 60vh;
+        margin-top: 10px;
+    }
+    .row > div:last-child >div{
+      line-height: 50px;
+    }
+    .row > div:last-child > div i{
+        font-size: 18px;
+      }
+    .profile-photo img{
+        border-radius: 100px;
+        text-align: center;
+        width: 150px;
+        height: 150px;
+    }
+    @media screen and (min-width:768px) {
+        * > body{
+        }
+    }
+    @media screen and (min-width:1200px) {
+        * > body{
+        }
+        header{
+            text-align: left;
+            justify-content: start;
+        }
+        .h3{
+            font-size: 20px;
+
+        }
+        .row > div:first-child{
+            background-image: url('{% static "images/2.jpg" %}');
+            background-position: center;
+            background-size: cover;
+            background-attachment: scroll;
+            height: 50vh;
+            border-bottom: 0px solid #000;
+        }
+        .row > div:last-child{
+            height: 60vh;
+            margin-top: 10px;
+        }
+        .row > div:last-child >div{
+          line-height: 50px;
+        }
+        .row > div:last-child > div i{
+            font-size: 25px;
+            margin-right: 0px;
+          }
+        .profile-photo img{
+            border-radius: 200px;
+            text-align: center;
+            width: 250px;
+            height: 250px;
+        }
+        .profile-name{
+            font-size: 18px;
+            border-radius: 0px;
+            padding: 5px 50px;
+        }
+    }
+</style>
+    <div class=" ">
+        <div class="row">
+            <div class="col-12 bg-light">
+                <div class="profile-photo mt-0" style="text-align: center;">
+                    <a href="/" class="nav-link h3"><i class="bi-chevron-left mr-4 text-light" style="position: absolute;left: 10px;"></i></a>
+                    <img src="{{user.picture.url}}" alt="Profile Picture">
+                    <br class="br "> 
+                    <h6 class="h6 btn btn-primary mt-2 profile-name">
+                        {{user.first_name}}-{{user.last_name}}
+                    </h6>
+                </div>
+            </div>
+            <div class="container col-12  bg-light pb-4 pt-1" style="">
+                <div class="d-flex flex-column bd-highlight">
+                    <div class="p-2 bd-highlight" style="border-bottom: 2px solid #ccc;"><i class="bi-list-ul  p-2"> <span class="p-4"> <a href="{% url 'Item:my-ads' %}">My Ads</a></span></i> </div>
+                    <div class="p-2 bd-highlight" style="border-bottom: 2px solid #ccc;"><i class="bi bi-signpost-2  p-2"> <span class="p-4"> <a href="#">Promote my Product</a></span></i> </div>
+                    <div class="p-2 bd-highlight" style="border-bottom: 2px solid #ccc;"><i class="bi-question-circle"> <span class="p-4"> <a href="profile/feedback">My Feedback</a></span></i></div>
+                    <div class="p-2 bd-highlight" style="border-bottom: 2px solid #ccc;"><i class="bi-messenger"> <span class="p-4"> <a href="">My Message</a> </span></i></div>
+                    <div class="p-2 bd-highlight" style="border-bottom: 2px solid #ccc;"><i class="bi-gear-wide-connected"> <span class="p-4"> <a href="{% url 'Item:setting' %}">My Settings</a></span></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content%}

@@ -1,0 +1,40 @@
+{% extends 'partial/base.html' %}
+{% load static %} 
+{%block title %}setting {% endblock  %}
+{% block content%}
+<style>
+    .setting-detail{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .setting-detail ul >li{
+        list-style-type: none;
+        padding: 20px 0px;
+        margin: 0;
+        border-bottom: 1px solid rgb(77, 74, 74);
+    }
+    @media screen and (min-width:768px) {
+        * > body{
+        }
+    }
+    @media screen and (min-width:1200px) {
+       
+    }
+</style>
+    <div class="header">
+        <a href="{% url 'Item:profile' %}" class="nav-link h3"><i class="bi-chevron-left mr-4" ></i>Settings</a>
+    </div>
+   <main>
+       <div class="setting-detail">
+           <ul class="m-0">
+               <li class="m-0"> <a href="{% url 'Item:personal_details' %}">Personnel Details</a></li>
+               <li><a href="{% url 'Item:add_phone' %}">Add Phone number</a> </li>
+               <li><a href="{% url 'account_email' %}">change Email</a> </li>
+               <li><a href=" {% url 'account_change_password' %} ">Change Password</a></li>
+               <li> <a href="{% url 'Item:deactivate_user'%}">Delete my Account Forever</a></li>
+               <li>Logout</li>
+           </ul>
+       </div>
+   </main>
+{% endblock content%}

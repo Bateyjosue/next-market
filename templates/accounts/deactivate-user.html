@@ -1,0 +1,40 @@
+{% extends 'partial/base.html' %}
+{% load static %}
+{% block content%}
+
+<main>
+    <div class="container">
+        <form action="" method="post">
+           {% csrf_token%}
+            <div class="ui br">
+                <div class="ui warning message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                      Account Deactivation
+                    </div>
+                    <p>By clicking the button below you will deactivate temporarly you acount which will be deleted definetly in 3hours and all informations related to this account will desappear immediately</p>
+                </div>
+                <button class="ui save button red" type="submit" name="deactivate" value="deactivate">
+                    <i class="delete icon"></i>
+                    Deactivate
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+<div class="" >
+    <strong>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if nessage.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show bg-success fw-normal" {% endif%} role="alert">
+                    {{message}}
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </strong> 
+  </div>
+{% endblock %}
+<script>
+</script>

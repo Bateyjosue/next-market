@@ -1,0 +1,26 @@
+{% extends 'partial/base.html'%}
+{% block title%}
+    addd-item
+{% endblock%}
+{% load crispy_forms_tags %}
+{% block content%}
+
+<main>
+    <div class="container">
+        <form action="" method="get">
+            {% csrf_token %}
+            <div class="ui loading search">
+                <div class="ui icon input">
+                  <input class="prompt" type="text" placeholder="Search...">
+                  <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+                <button class="ui primary loading button" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</main>
+<script type="text/javascript">
+
+</script>
+{% endblock%}

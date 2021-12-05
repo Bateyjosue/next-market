@@ -1,0 +1,113 @@
+{% extends 'partial/base.html'%}
+{% block title%}
+    my-ads
+{% endblock%}
+{% block content%}
+<!-- <style>
+    .row div:nth-of-type(){
+        background-color: transparent !important;
+        
+    }
+    .tabs{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    .tabs >li{
+        list-style-type: none;
+        padding: 5px 20px;
+        text-align: center;
+         background: rgb(0, 123, 255);
+        font-size: 14px;
+        margin: 0px;
+    }
+    .tab >li:hover{
+        background: rgb(29, 29, 29);
+    }
+    @media screen and (min-width:768px) {
+        
+    }
+    @media screen and (min-width:1200px) {
+        .row div:nth-of-type(1){
+            
+        }
+        .tab{
+            display: block;
+            position: absolute;
+            left: 0px;
+            height: 100%;
+        }
+        .tab >li{
+            list-style-type: none;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+            margin: 0px;
+        }
+    }
+</style> -->
+
+<main>
+    <div class="sticky-top bg-light mb-0">
+        <a href="{% url 'Item:profile' %}" class="nav-link"><i class="bi-chevron-left mr-4" ></i>My Ads</a>
+    </div>
+    <div class="container ">
+        <div class="row " style="">
+            
+            <div class="col-12 col-lg-12" style="">
+                {% for i in item %}
+                    <div class="col-12  col-lg-4 mt-4 mr-lg-1 rounded" style="padding-left: 0px;   padding-right: 0px;margin-right: 0px;border-radius: 5px !important;">
+                        <div class="card mb-2" style="">
+                            <div class="row">
+                                <div class="col-6 col-lg-6 " style="padding-right:0px !important">
+                                    <img src="{{i.image.url}}" alt="{{i.title}}" class="img-fluid" style="box-sizing: border-box; height: 167px;object-fit: cover;">
+                                </div>
+                                <div class="col-6  col-lg-6" style="padding-left: 0px !important;">
+                                    <div class="p-1 ">
+                                        <h6 class="card-title text-primary">{{i.title}}</h6>
+                                        <p class="card-text" style="font-size: 13px;">{{i.description|truncatechars:50}}</p>
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" id="" value="{{i.id}}">
+                                                {% if i.status%}
+                                                <button type="submit" class="btn btn-success p-1 p-lg-2 align-center" name="state" value="Activate">Activate</button>
+                                                {% else %}
+                                                    <button type="submit" class="btn btn-danger p-1 p-lg-2" name="state" value="Deactivate">Deactivate</button>
+                                                {% endif %}
+                                            </form>
+                                                <p class="card-text"><small class="text-muted">{{i.updatedAT}}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+    <div class="diplay-4">
+        Simular Adverts
+    </div>
+    <div class="tab">
+        <div id="#active"></div>
+        <div id="#review"></div>
+        <div id="#rdecline"></div>
+    </div>
+
+    <div class="text-right bg-success w-25 position-absolute button-0 end-0 p-2" >
+        <strong>
+            {% if messages %}
+                    {% for message in messages %}
+                    <i 
+                    {% if nessage.tags %} 
+                        class="alert alert-{{message.tags}} alert-dismissible fade show  fw-normal" role="alert"
+                    {% endif%} >
+                        {{message}}
+                    </i>
+                    {% endfor %}
+            {% endif %}
+        </strong> 
+    </div>
+
+{% endblock%}

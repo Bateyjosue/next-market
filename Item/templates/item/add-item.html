@@ -1,0 +1,120 @@
+{% extends 'partial/base.html'%}
+{% block title%}
+    addd-item
+{% endblock%}
+{% load crispy_forms_tags %}
+{% block content%}
+<main>
+    
+    <div class="container" style="">
+        <img src="" id="myImage" alt="">
+       <section class="mb-4">
+            <div class="row wow fadeIn ">
+                <div class="col-12 col-lg-6 m-auto" style="font-size: 15px; font-weight: 100;">
+                    <h1>Add Adverts</h1>
+                    <form action="{% url 'Item:add-item' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="disabledTextInput" class="form-label fw-normal" style="font-weight: 100px;">Owner:</label>
+                            <input name="user" type="text" id="disabledTextInput" class="form-control" value="{{request.user }}" placeholder="{{request.user }}" aria-label="Disabled input example" disabled readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleDataList" class="form-label fw-normal" style="font-weight: 100px;">Category</label>
+                            <input class="form-control" name="category" list="datalistOptions" id="exampleDataList" placeholder="Type of Product...">
+                            <datalist id="datalistOptions">
+                                {% for cat in cat %}
+                                    <option value="{{cat.name}}">
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="title" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput " class="fw-normal ">Title</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFileMultiple" class="form-label fw-normal">Attach an Image </label>
+                            <input class="form-control" type="file" name="image" id="image" multiple accept="image/*">
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="keyword" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput" class="fw-normal">Keywords</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea name="description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2" class="fw-normal">Description</label>
+                          </div>
+                        <div class="form-floating mb-3">
+                            <input name="discount" type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput" class="fw-normal">Discount</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="price" type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput" class="fw-normal">Price</label>
+                        </div>
+                        <!-- <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">0.00</span>
+                            <input type="text " class="form-control input-group-text" aria-label="Dollar amount (with dot and two decimal places)">
+                        </div> -->
+                        <div class="form-floating mb-3">
+                            <input name="brand" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput" class="fw-normal">Brand</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input name="model" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput" class="fw-normal">Model</label>
+                        </div>
+                        <div class="mb-3" >
+                            <label for="exampleColorInput" class="form-label fw-normal">Color picker</label>
+                            <input name="color" type="color" class="form-control form-control-color bg-dark" id="exampleColorInput" value="#000000" title="Choose your color">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleDataList" class="form-label fw-normal">Condition</label>
+                            <input class="form-control" name="condition" list="datalistOptions" id="exampleDataList" placeholder="Condition of Product...">
+                            <datalist id="datalistOptions">
+                                {% for item in item %}
+                                    <option value="{{item.condition}}"></option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                        
+                        <button class="btn btn-primary rounded-pill w-100" type="submit">Post Ads</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<div class=" " >
+    <strong>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if nessage.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show bg-success fw-normal" role="alert" {% endif%}>
+                    {{message}}
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </strong> 
+</div>
+<script type="text/javascript">
+    function findSize(){
+        if($.browser.msie){
+            var imgfile = document.getElementById('image').value;
+            $('#myImage').attr('src', imgfile);
+            var imgbytes = document.getElementById('myImage').size;
+            var imgkbytes = Math.round(parseInt(imgbytes)/1024);
+            alert(imgkbytes + ' KB');
+        }
+        else{
+            var fileInput = $('#loadfile')[0];
+            var imgbytes = fileInput.files[0].fileSize;
+            var imgkbytes = Math.round(parseInt(imgbytes)/1024);
+            alert(imgkbytes+' KB');
+        }
+    }
+    
+</script>
+<script src="tab.js"></script>
+{% endblock%}

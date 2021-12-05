@@ -1,0 +1,45 @@
+{% extends 'partial/base.html' %}
+{% load static %}
+{% block content%}
+
+<main>
+    <div class="container">
+        <p>
+            Current number : 
+            {%for numbers in number %}
+                {{numbers.phone}}
+                {% empty %}
+                    No number Found...
+            {% endfor %}
+        </p>
+        <form action="" method="post">
+           {% csrf_token%}
+            <div class="ui left icon input">
+                <input type="text" placeholder="New Number..." class="" name="new_number">
+                <i class="users icon"></i>
+            </div>
+            <div class="ui br">
+                <button class="ui save button" type="submit">
+                    <i class="save icon"></i>
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+<div class="" >
+    <strong>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if nessage.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show bg-success fw-normal" {% endif%} role="alert">
+                    {{message}}
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </strong> 
+  </div>
+{% endblock %}
+<script>
+</script>

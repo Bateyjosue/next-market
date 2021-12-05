@@ -1,0 +1,87 @@
+{% extends 'partial/base.html' %}
+{% load static %} 
+{%block title %}Profile {% endblock  %}
+{% block content%}
+    <main>
+        <div class="container">
+            <form class="ui form" action="" method="post">
+                {% csrf_token %}
+                {% for user_details in user %}
+                <div class="field">
+                    <input type="hidden" name="id_user" value="{{ user_details.pk}}">
+                </div>
+                <h4 class="ui dividing header">Personal User Information</h4>
+                <div class="field">
+                    <div class="field" style="margin-top:0px; text-align:center;">
+                        <img class="ui medium circular image" src="{{user_details.picture.url}}" alt="">
+                        <input type="file" name="picture" id="" />
+                    </div>
+                    <label>Name</label>
+                    <div class="two fields">
+                      <div class="field">
+                        <input type="text" name="first-name" placeholder="First-Name" value="{{user_details.first_name}}">
+                      </div>
+                      <div class="field">
+                        <input type="text" name="last-name" placeholder="Last-Name" value="{{user_details.last_name}}">
+                      </div>
+                    </div>
+                    <div class="field">
+                        <label>Gender</label>
+                        <select name="gender">
+                          <option value="">Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Date Of Birth</label>
+                        <input type="date" name="dob" id="" value="{{user_details.dob}}">
+                    </div>
+                  </div>
+                  <h4 class="ui dividing header">User Contact Information</h4>
+                <div class="field">
+                    <label>Contact</label>
+                    <div class="two fields">
+                      <div class="field">
+                        <input type="text" name="phone-number" placeholder="Phone Number" value="{{user_details.phone}}">
+                      </div>
+                      <div class="field">
+                        <input type="email" name="email-address" placeholder="Email Address" value="{{user_details.email}}">
+                      </div>
+                    </div>
+                </div>
+                <h4 class="ui dividing header">User Location Information</h4>
+                <label>Location</label>
+                <div class="three fields">
+                    <div class="field">
+                        <input type="text" name="country" id="" value="{{user_details.country}}" placeholder="Country">
+                    </div>
+                    <div class="field">
+                        <input type="text" name="city" id="" value="{{user_details.city}}" placeholder="city">
+                    </div>
+                    <div class="field">
+                        <input type="text" name="district" id="" value="{{user_details.district}}" placeholder="District">
+                    </div>
+                </div>
+                <div class="field">
+                    <button class="ui button" id="" type="submit">Save Information</button>
+                </div>
+            {% endfor %}
+            </form>
+        </div>
+    </main>
+    <div class="text-right bg-success w-25 position-absolute button-0 end-0 p-2" >
+        <strong>
+            {% if messages %}
+                    {% for message in messages %}
+                    <i 
+                    {% if nessage.tags %} 
+                        class="alert alert-{{message.tags}} alert-dismissible fade show  fw-normal" role="alert"
+                    {% endif%} >
+                        {{message}}
+                    </i>
+                    {% endfor %}
+            {% endif %}
+        </strong> 
+    </div>
+{% endblock content%}

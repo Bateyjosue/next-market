@@ -1,0 +1,274 @@
+{% extends 'partial/base.html' %}
+
+{% block content %}
+        <main>
+                <div class="container-fluid mt-lg-4 mt-sm-2">
+                    <div class="col-lg-4 bg-light p-0">
+                        <h4 class="bg-dark text-light p-3 m-0">Filter by Product Name</h4>
+                        <div class="p-2">
+                            <!-- <h6 class="p-2">category</h6> -->
+                            <form method="get" action="" >
+                                {% csrf_token %}
+                                <div class="ui fluid icon input">
+                                    <input type="text" name="search" value="" placeholder="Search Product..." class="">
+                                    <i class="circular search link icon button" type="submit" ></i>
+                                  </div>
+                                <!-- <div>
+                                    <button class="btn bg-info w-100 rounded-pill text-light" type="submit"> Search</button>
+                                </div> -->
+                            </form>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-1"></div> -->
+                    {% for s in search%}
+                        {% if s.user.is_active == True %}
+                        <div class="container col-12 col-lg-4 mb-4"  >
+                            <div class="ui card w-lg-100 w-100">
+                                <div class="content">
+                                    <div class="right floated meta">{{s.createdAt|timesince}}</div>
+                                    <img class="ui avatar image" src="{{s.user.picture.url}}"> 
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#ModelUser">{{s.user.last_name}}@{{s.user.id}}</a>
+                                        <!-- User -->
+                                        <div class="modal fade" id="modelUser" tabindex="-1" aria-labelledby="modelUserLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-success text-light">
+                                                        <h5 class="modal-title" id="exampleModalLabel">{{i.user}}</h5>
+                                                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <div class="bg-dark w-25">
+                                                                    <img src="{{s.user.picture.url}}" alt="" height="150" width="150" class="rounded-circle">
+                                                                </div>
+                                                                <div>
+                                                                    {{s.user.first_name}}-{{s.user.last_name}}
+                                                                </div>
+                                                                <div>
+                                                                    {{s.user.email}}
+                                                                </div>
+                                                                <div>
+                                                                    {{s.user.city}}-{{s.user.district}}
+                                                                </div> 
+                                                                <div>
+                                                                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modelMessage">Message</button>
+                                                                        
+                                                                                <div class="modal fade" id="modelMessage" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header bg-success text-light">
+                                                                                                <h5 class="modal-title" id="exampleModalLabel">Message the Owner</h5>
+                                                                                                <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                            </div>
+                                                                                            <form action="" method="get">
+                                                                                                <div class="modal-body">
+                                                                                                    <div class="container" style="box-sizing: border-box;">
+                                                                                                        <div class="mb-3">
+                                                                                                            <input name="user-message" type="hidden" id="disabledTextInput" class="form-control" style=" max-width: 350px;" value="{{request.user }}" placeholder="{{request.user }}" aria-label="Disabled input example" disabled readonly>
+                                                                                                        </div>
+                                                                                                        <div class="form-floating ">
+                                                                                                            <textarea class="form-control fs-4" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px; max-width: 350px;"></textarea>
+                                                                                                            <label for="floatingTextarea2" class="fw-normal pt-2">Your Message</label>
+                                                                                                        </div>
+                                                                                                    </div>  
+                                                                                                </div>
+                                                                                                <div class="modal-footer">
+                                                                                                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                                                                    <button type="submit" class="btn btn-primary rounded-pill">Send Message</button>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                        
+                                                                </div> 
+                                                            </div>  
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary rounded-pill">Save changes</button>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="image">
+                                    <img src="{{s.image.url}}">
+                                </div>
+                                <div class="content">
+                                    <span class="right floated">
+                                        <i class=" dollar icon"></i>
+                                        {{s.price}}
+                                    </span>
+                                    <i class="eye icon"></i>
+                                    <a href="product/{{s.pk}}">{{s.title}}</a> 
+                                </div>
+                                <div class="extra content">
+                                <div class="ui large transparent left icon input w-100">
+                                    <style>
+                                        .d-flex > div{
+                                        flex:1;
+                                        text-align :center;
+                                        }
+                                    </style>
+                                    <div class="d-flex w-100">
+                                            <div class="ui avatar flex-fill" data-title="Location" data-tooltip="{{s.user.city}}/{{s.user.district}}">
+                                                <i class="map marker alternate icon"></i>
+                                            </div>
+                                            <div class="flex-fill" data-title="Call" data-tooltip="{{s.user.phone}}">
+                                                <i class="phone icon"></i>
+                                            </div>
+                                            <div class="flex-fill" data-title="Email" data-tooltip="{{s.user.email}}">
+                                                <i class="envelope icon" ></i>
+                                            </div>
+                                    </div>
+                                    <!-- <a href="">
+                                        <input type="text" placeholder="Add Comment..." class="">
+                                    </a> -->
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="col-lg-6 w-100">
+                        <h4>Adverts</h4>
+                        {% for i in items %}
+                            {% if i.user.is_active == True %}
+                                <div class="container col-12 col-lg-4 mb-4"  >
+                                    <div class="ui card w-lg-100 w-100">
+                                        <div class="content">
+                                            <div class="right floated meta">{{i.createdAt|timesince}}</div>
+                                            <img class="ui avatar image" src="{{i.user.picture.url}}"> 
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#ModelUser">{{i.user.last_name}}@{{i.user.id}}</a>
+                                                <!-- User -->
+                                                <div class="modal fade" id="modelUser" tabindex="-1" aria-labelledby="modelUserLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-success text-light">
+                                                                <h5 class="modal-title" id="exampleModalLabel">{{i.user}}</h5>
+                                                                <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="bg-dark w-25">
+                                                                            <img src="{{i.user.picture.url}}" alt="" height="150" width="150" class="rounded-circle">
+                                                                        </div>
+                                                                        <div>
+                                                                            {{i.user.first_name}}-{{i.user.last_name}}
+                                                                        </div>
+                                                                        <div>
+                                                                            {{i.user.email}}
+                                                                        </div>
+                                                                        <div>
+                                                                            {{i.user.city}}-{{i.user.district}}
+                                                                        </div> 
+                                                                        <div>
+                                                                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modelMessage">Message</button>
+                                                                                
+                                                                                        <div class="modal fade" id="modelMessage" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header bg-success text-light">
+                                                                                                        <h5 class="modal-title" id="exampleModalLabel">Message the Owner</h5>
+                                                                                                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                    </div>
+                                                                                                    <form action="" method="get">
+                                                                                                        <div class="modal-body">
+                                                                                                            <div class="container" style="box-sizing: border-box;">
+                                                                                                                <div class="mb-3">
+                                                                                                                    <input name="user-message" type="hidden" id="disabledTextInput" class="form-control" style=" max-width: 350px;" value="{{request.user }}" placeholder="{{request.user }}" aria-label="Disabled input example" disabled readonly>
+                                                                                                                </div>
+                                                                                                                <div class="form-floating ">
+                                                                                                                    <textarea class="form-control fs-4" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px; max-width: 350px;"></textarea>
+                                                                                                                    <label for="floatingTextarea2" class="fw-normal pt-2">Your Message</label>
+                                                                                                                </div>
+                                                                                                            </div>  
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                                                                            <button type="submit" class="btn btn-primary rounded-pill">Send Message</button>
+                                                                                                        </div>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                
+                                                                        </div> 
+                                                                    </div>  
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary rounded-pill">Save changes</button>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="image">
+                                            <img src="{{i.image.url}}">
+                                        </div>
+                                        <div class="content">
+                                            <span class="right floated">
+                                                <i class=" dollar icon"></i>
+                                                {{i.price}}
+                                            </span>
+                                            <i class="eye icon"></i>
+                                            <a href="product/{{i.pk}}">{{i.title}}</a> 
+                                        </div>
+                                        <div class="extra content">
+                                        <div class="ui large transparent left icon input w-100">
+                                            <style>
+                                                .d-flex > div{
+                                                flex:1;
+                                                text-align :center;
+                                                }
+                                            </style>
+                                            <div class="d-flex w-100">
+                                                    <div class="ui avatar flex-fill" data-title="Location" data-tooltip="{{i.user.city}}/{{i.user.district}}">
+                                                        <i class="map marker alternate icon"></i>
+                                                    </div>
+                                                    <div class="flex-fill" data-title="Call" data-tooltip="{{i.user.phone}}">
+                                                        <i class="phone icon"></i>
+                                                    </div>
+                                                    <div class="flex-fill" data-title="Email" data-tooltip="{{i.user.email}}">
+                                                        <i class="envelope icon" ></i>
+                                                    </div>
+                                            </div>
+                                            <!-- <a href="">
+                                                <input type="text" placeholder="Add Comment..." class="">
+                                            </a> -->
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <nav aria-label="Page navigation example" class="align-center">
+                        <ul class="pagination justify-content-end ">
+                          <li class="page-item m-0 {% if not previous_page_url %} disabled {% endif %}">
+                            <a class="page-link p-3" href="{{previous_page_url}}" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                            {% for n in page.paginator.page_range %}
+                                {% if page.number == n%}
+                                    <li class="page-item m-0 active"><a class="page-link p-3" href="?page={{n}}">{{n}}</a></li>
+                                {% elif n > page.number|add:-3 and n < page.number|add:3 %}
+                                    <li class="page-item m-0"><a class="page-link p-3" href="?page={{n}}">{{n}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                          <li class="page-item m-0 {% if not next_page_url %} disabled {% endif %}">
+                            <a class="page-link p-3" href="{{next_page_url}}" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                    </nav>
+                </div>
+        </main>
+    
+{% endblock %}

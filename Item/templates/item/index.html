@@ -1,0 +1,238 @@
+{% extends 'partial/base.html' %}
+{% load static %}
+{% block content%}
+        <div id="myCarousel" class="carousel slide w-md-100" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner ">
+            <div class="carousel-item active">
+                <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+
+                <div class="container">
+                <div class="carousel-caption text-start">
+                    <h1>Next Market</h1>
+                    <p> It is an online classified platform with an advanced security system. 
+                        We provide a self-service solution to sell and buy almost anything and everything.
+                        Second-hand business model management system is the right place to sell and buy anything from and to real customers</p>
+                    <p><a class="btn btn-lg btn-primary" href="#">See More</a></p>
+                </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+
+                <div class="container">
+                <div class="carousel-caption">
+                    <h1>How to Sell to Next market</h1>
+                    <p>Register using your e-mail and phone number (or do it via Facebook or Google). Make sure you’re entering a correct phone number, so your clients could reach you!</p>
+                    <p><a class="btn btn-lg btn-primary" href="{{ signup_url }}">Register Now</a></p>
+                </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+
+                <div class="container">
+                <div class="carousel-caption text-center">
+                    <h1>Press sell</h1>
+                    <p>Choose a proper category, Add/upload your photos or short video and write a clear title 
+                        and full description of your items. Enter a fair price, select attributes 
+                        and send your advert to review or moderate!</p>
+                    <p><a class="btn btn-lg btn-primary" href="#">See More</a></p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">السابق</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">التالي</span>
+            </button>
+        </div>
+    <main class="container-fluid w-lg-100 w-100">
+     <!-- <div id="slider" style="height: 250px; width: 100%; background: #1D3461; padding: 0px;">
+            <div>
+                <p class="fs-2 fs-sm-6" style="color: aliceblue; padding: 10px;">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo quae dignissimos eius aspernatur sed, 
+                    alias maxime omnis voluptatem velit maiores similique iusto deleniti hic, ad voluptatum est perferendis 
+                    earum eveniet? Quod fugiat ipsa ipsam, eius totam ratione voluptatibus cupiditate enim earum voluptas, 
+                    iusto reprehenderit nisi iste, neque distinctio necessitatibus beatae.
+                </p>
+                <button class="btn  rounded-0" style="background: #FF5B13;margin-left:10px; color: white;">Learn More</button>
+            </div>
+        </div> -->
+        <div class="category">
+            <div class="h3">
+                Category ads
+            </div>
+
+            <!-- <div class="row" style="display:flex; overflow-x: scroll; ">
+                {% for category in cat %}
+                <div class="col-4 col-lg-2 category-item">
+                    <img src="{{category.icon.url}}" alt="" width="80" height="80">
+                    <h6 class=""><a href="category/{{category.id}}">{{category.name}}</a></h6>
+                </div>
+                {% if category.len == 10 %}
+                {% endif %}
+                {% endfor block %}
+            </div> -->
+
+            <div class="category" style=" display:flex; overflow-x: auto;">
+                {% for category in cat %}
+                <div class="category-item">
+                    <img src="{{category.icon.url}}" alt="" width="80" height="80">
+                    <div>
+                        <h6 class=""><a href="category/{{category.id}}">{{category.name|truncatechars:18}}</a></h6>
+                    </div>
+                    
+                </div>
+                {% if category.len == 10 %}
+                {% endif %}
+                {% endfor block %}
+            </div>
+        </div>
+        <!-- SHOW ITEMS -->
+        <div class="ads">
+            <div class="h3">
+                Trending ads
+            </div>
+            <div class="row">
+            {% for i in item %}
+                {%if not i.user.is_active == False %}                
+                    <div class="container col-12 col-lg-3 mb-4"  >
+                        <div class="ui card w-lg-100 w-100">
+                            <div class="content">
+                                <div class="right floated meta">{{i.createdAt|timesince}}</div>
+                                <img class="ui avatar image" src="{{i.user.picture.url}}" data-bs-toggle="modal" data-bs-target="#ModelUser"> 
+                                <a href="" data-bs-toggle="modal" data-bs-target="#ModelUser">{{i.user.last_name}}@{{i.user.first_name}}</a>
+                                    <!-- User -->
+                                    <div class="modal fade" id="modelUser" tabindex="-1" aria-labelledby="modelUserLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-success text-light">
+                                                    <h5 class="modal-title" id="exampleModalLabel">{{i.user}}</h5>
+                                                    <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                    <div class="modal-body">
+                                                        <div class="container">
+                                                            <div class="bg-dark w-25">
+                                                                <img src="{{i.user.picture.url}}" alt="" height="150" width="150" class="rounded-circle">
+                                                            </div>
+                                                            <div>
+                                                                {{i.user.first_name}}-{{i.user.last_name}}
+                                                            </div>
+                                                            <div>
+                                                                {{i.user.email}}
+                                                            </div>
+                                                            <div>
+                                                                {{i.user.city}}-{{i.user.district}}
+                                                            </div> 
+                                                            <div>
+                                                                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modelMessage">Message</button>
+                                                                    
+                                                                            <div class="modal fade" id="modelMessage" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header bg-success text-light">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">Message the Owner</h5>
+                                                                                            <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <form action="" method="get">
+                                                                                            <div class="modal-body">
+                                                                                                <div class="container" style="box-sizing: border-box;">
+                                                                                                    <div class="mb-3">
+                                                                                                        <input name="user-message" type="hidden" id="disabledTextInput" class="form-control" style=" max-width: 350px;" value="{{request.user }}" placeholder="{{request.user }}" aria-label="Disabled input example" disabled readonly>
+                                                                                                    </div>
+                                                                                                    <div class="form-floating ">
+                                                                                                        <textarea class="form-control fs-4" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px; max-width: 350px;"></textarea>
+                                                                                                        <label for="floatingTextarea2" class="fw-normal pt-2">Your Message</label>
+                                                                                                    </div>
+                                                                                                </div>  
+                                                                                            </div>
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                                                                <button type="submit" class="btn btn-primary rounded-pill">Send Message</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                    
+                                                            </div> 
+                                                        </div>  
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary rounded-pill">Save changes</button>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="image bg-light">
+                                <img src="{{i.image.url}}" class="img-fluid" style="width:200 px; height:200px;object-fit: contain;">
+                            </div>
+                            <div class="content">
+                                <span class="right floated">
+                                    <i class=" dollar icon"></i>
+                                    {{i.price}}
+                                </span>
+                                <i class="eye icon"></i>
+                                <a href="product/{{i.pk}}">{{i.title}}</a>
+                                <span class=" ui  text center">
+                                    <i class=" stock icon"></i>
+                                    {% if i.status == True %}
+                                        <p class="bg-success text-center w-25 rounded-pill">In Stock</p>
+                                    {% else %}
+                                        <p class="bg-danger text-center w-25 rounded-pill p-1">Out Stock</p>
+                                    {% endif %}
+                                </span> 
+                            </div>
+                            <div class="extra content">
+                            <div class="ui large transparent left icon input w-100">
+                                <style>
+                                    .d-flex > div{
+                                    flex:1;
+                                    text-align :center;
+                                    }
+                                </style>
+                                <div class="d-flex w-100">
+                                        <div class="ui avatar flex-fill" data-title="Location" data-tooltip="{{i.user.city}}/{{i.user.district}}">
+                                            <i class="map marker alternate icon"></i>
+                                        </div>
+                                        <div class="flex-fill" data-title="Call" data-tooltip="{{i.user.phone}}">
+                                            <i class="phone icon"></i>
+                                        </div>
+                                        <div class="flex-fill" data-title="Email" data-tooltip="{{i.user.email}}">
+                                            <i class="envelope icon" ></i>
+                                        </div>
+                                </div>
+                                <!-- <a href="">
+                                    <input type="text" placeholder="Add Comment..." class="">
+                                </a> -->
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif%}
+            {% endfor %} 
+            </div>
+        </div>
+    </main>
+ 
+{% endblock %}
+
+<div class="modal-body">
+    
+</div>
+<script>
+    var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+        trigger: 'focus'
+    });
+</script>

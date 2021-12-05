@@ -1,0 +1,141 @@
+<div class="col-12 col-lg-3 ads-item" >
+                   <div class="photo">
+                       <img src="{{i.image.url}}" alt="Product Picture" class="img-fluid">
+
+                   </div>
+                   <div class="ti-pri">
+                        <div class="fs-4"> <a href="product/{{i.pk}}">{{i.title|capfirst}}</a> </div>
+                        <div class="fs-5" style="font-weight: lighter;">Frw{{i.price}}</div>
+                   </div>
+                   <div class="foot  pb-0 mb-4">
+                    <div class="location">
+                        <ul class="nav d-flex justify-content-between">
+                            <li class="nav-item p-2"  data-bs-toggle="tooltip modal" data-bs-placement="top" title="{{i.user.email}}">
+                                <i class="bi-person-circle text-info" style="font-size: 20px;" data-bs-toggle="modal" data-bs-target="#modelUser"></i>
+                            </li>
+                           
+                                <div class="modal fade" id="modelUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-success text-light">
+                                                <h5 class="modal-title" id="exampleModalLabel">{{i.user}}</h5>
+                                                <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    <div class="container">
+                                                        <div class="bg-dark w-25">
+                                                            <img src="{{i.user.picture.url}}" alt="" height="150" width="150" class="rounded-circle">
+                                                        </div>
+                                                        <div>
+                                                            {{i.user.first_name}}-{{i.user.last_name}}
+                                                        </div>
+                                                        <div>
+                                                            {{i.user.email}}
+                                                        </div>
+                                                        <div>
+                                                            {{i.user.city}}-{{i.user.district}}
+                                                        </div> 
+                                                        <div>
+                                                            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modelMessage">Message</button>
+                                                                
+                                                                        <div class="modal fade" id="modelMessage" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header bg-success text-light">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">Message the Owner</h5>
+                                                                                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <form action="" method="get">
+                                                                                        <div class="modal-body">
+                                                                                            <div class="container" style="box-sizing: border-box;">
+                                                                                                <div class="mb-3">
+                                                                                                    <input name="user-message" type="hidden" id="disabledTextInput" class="form-control" style=" max-width: 350px;" value="{{request.user }}" placeholder="{{request.user }}" aria-label="Disabled input example" disabled readonly>
+                                                                                                </div>
+                                                                                                <div class="form-floating ">
+                                                                                                    <textarea class="form-control fs-4" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px; max-width: 350px;"></textarea>
+                                                                                                    <label for="floatingTextarea2" class="fw-normal pt-2">Your Message</label>
+                                                                                                </div>
+                                                                                            </div>  
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                                                            <button type="submit" class="btn btn-primary rounded-pill">Send Message</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                
+                                                        </div> 
+                                                    </div>  
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary rounded-pill">Save changes</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                
+                            <li class="nav-item p-2"  data-bs-toggle="tooltip" data-bs-placement="top" title="{{i.user.phone}}">
+                                <a href="tel:{{i.user.phone}}">
+                                    <i class="bi-phone text-light popover-dismiss" style="font-size: 20px;" tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="{{i.user.phone}}" data-bs-content="{{i.user.phone}}"></i>
+
+                                </a>
+                            </li>
+                            <li class="nav-item p-2"  data-bs-toggle="tooltip" data-bs-placement="top" title="{{i.user.city}}/{{i.user.district}}">
+                                <i class="bi-geo-alt-fill text-light" style="font-size: 20px;"></i>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                    <div class="discount bg-primary text-light">
+                        {{i.disc}}%
+                    </div>
+                    <div class="stock" style="">
+                        <ul class="nav ">
+                            {% if i.status %}
+                                <li class="nav-item bg-success" ></li>
+                            {% else %}
+                                <li class="nav-item bg-danger"></li>
+                            {% endif%}
+
+                        </ul>
+                    </div>
+               </div> 
+                </div>
+
+<!--CATEGOGIE FILTER  -->
+<!-- <div class="col-lg-3 bg-light p-0">
+                        <h4 class="bg-dark text-light p-3 m-0">Filter</h4>
+                        <div class="p-2">
+                            <h6 class="p-2">category</h6>
+                            <form method="get" action="" >
+                                {% csrf_token %}
+                                {{search.form}}
+                                {% for categories in categories %}
+                                    {% if category.id == categories.id %}
+                                        <div style="">
+                                            <input class="p-2 " type="radio" name="cat" id="category" checked >
+                                            <label class="fs-6 fw-normal" for="category" id="category">{{categories.name}}</label>
+                                            <br>
+                                        </div>
+                                    {% else %}
+                                        <div style="">
+                                            <input class="p-2 " type="radio" name="cat" id="category" value="{{categories.name}}">
+                                            <label class="fs-6 fw-normal" for="category" id="category">{{categories.name}}</label>
+                                            <br>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <div>
+                                    <button class="btn bg-info w-100 rounded-pill text-light" type="submit"> Search</button>
+                                     <input type="submit" value="search">
+                                </div>
+                            </form>
+                        </div>
+                    </div> -->
+
+
+                    <img class="ui right spaced avatar image" src="{{request.user.picture.url}}">
