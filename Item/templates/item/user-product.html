@@ -3,50 +3,6 @@
     my-ads
 {% endblock%}
 {% block content%}
-<!-- <style>
-    .row div:nth-of-type(){
-        background-color: transparent !important;
-        
-    }
-    .tabs{
-        display: flex;
-        justify-content: center;
-        text-align: center;
-    }
-    .tabs >li{
-        list-style-type: none;
-        padding: 5px 20px;
-        text-align: center;
-         background: rgb(0, 123, 255);
-        font-size: 14px;
-        margin: 0px;
-    }
-    .tab >li:hover{
-        background: rgb(29, 29, 29);
-    }
-    @media screen and (min-width:768px) {
-        
-    }
-    @media screen and (min-width:1200px) {
-        .row div:nth-of-type(1){
-            
-        }
-        .tab{
-            display: block;
-            position: absolute;
-            left: 0px;
-            height: 100%;
-        }
-        .tab >li{
-            list-style-type: none;
-            padding: 15px 20px;
-            text-align: center;
-            font-size: 14px;
-            margin: 0px;
-        }
-    }
-</style> -->
-
 <main>
     <div class="sticky-top bg-light mb-0">
         <a href="{% url 'Item:profile' %}" class="nav-link"><i class="bi-chevron-left mr-4" ></i>My Ads</a>
@@ -94,20 +50,20 @@
         <div id="#review"></div>
         <div id="#rdecline"></div>
     </div>
-
-    <div class="text-right bg-success w-25 position-absolute button-0 end-0 p-2" >
-        <strong>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
             {% if messages %}
                     {% for message in messages %}
-                    <i 
-                    {% if nessage.tags %} 
-                        class="alert alert-{{message.tags}} alert-dismissible fade show  fw-normal" role="alert"
-                    {% endif%} >
                         {{message}}
-                    </i>
                     {% endfor %}
             {% endif %}
-        </strong> 
+        </div>
     </div>
 
 {% endblock%}
