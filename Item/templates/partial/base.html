@@ -112,7 +112,7 @@ body {
               Home
             </a>
             <a class="item" href="{% url 'Item:add-item' %}">
-              Post an ads
+              Post Product
             </a>
             {% if  request.user.is_authenticated  %}
             <div class="right menu">
@@ -130,7 +130,7 @@ body {
             {% endif%}
             <a class="item" href="{% url 'Item:profile' %}">
               <img class="ui right spaced avatar image" src="{% static 'images/user.png'%}" style="background-color: black;">
-              {{request.user.username}}
+              {{request.user.username|upper}}
             </a>
           </div>
         </nav>
