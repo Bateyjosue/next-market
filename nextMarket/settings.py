@@ -25,16 +25,16 @@ SECRET_KEY = '0g^s+d(e^xa4bc_431ywo=xd%ge9fvdx*!_#h7c3j$thqf05x*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','nextmarket.herokuapp.com',]
+ALLOWED_HOSTS = ['127.0.0.1','nextmarket.herokuapp.com','192.168.16.84']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.sessions',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
     'django.contrib.messages',
     #  'livereload',
     'django.contrib.staticfiles',
