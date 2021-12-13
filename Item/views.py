@@ -186,7 +186,7 @@ class AddItem(View):
                 # else:
                 item.save()
                 messages.success(request, 'Post Added Successfully!!!')
-                # redirect('/')
+                redirect('Item:my-ads')
             else:
                 messages.error(request,'Ooops, there is an error occuring in your process please contact the Admin!!!')
         else:

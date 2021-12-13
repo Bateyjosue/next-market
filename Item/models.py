@@ -64,7 +64,7 @@ class Item(models.Model):
         ('Used ', 'Used'),
     )
     condition   = models.CharField(max_length = 100, null = False, blank = False, choices=conditions,default='Used')
-    status      = models.BooleanField(default=False) #In Checking Process
+    status      = models.BooleanField(default=True) #In Checking Process
     is_ads      = models.BooleanField(default=False, blank=True) # Is advertize
     createdAt   = models.DateTimeField(auto_now_add = True)
     updatedAT   = models.DateTimeField(auto_now = True)
@@ -89,6 +89,9 @@ class Item(models.Model):
     #     })
     def deleteItem(self):
         pass
+    
+    def get_absolute_url(self):
+        return reverse('Item:my-ads')
 class Advert(models.Model):
     prom        = (
                     ('No Promote','Not Promote'),
