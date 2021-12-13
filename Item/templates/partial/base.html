@@ -99,7 +99,7 @@ body {
       </div>
     </div>
     <div class="hr"><hr class="p-0 m-0"></div>
-    <header class="header">
+    <header class="header" style="text-transform: uppercase;">
         <div class="logo">
             <a href="/">
                 <img class="ui right spaced avatar image" src="{% static 'images/logo.png'%}" style="background-color: black;">
@@ -109,23 +109,23 @@ body {
         <nav class="nav-base" style="">
           <div class="ui large secondary pointing menu right" style="line-height:30px">
             <a class="item active" href="/">
-              Home
+              HOME
             </a>
             <a class="item" href="{% url 'Item:add-item' %}">
-              Post Product
+              POST
             </a>
             {% if  request.user.is_authenticated  %}
             <div class="right menu">
               <a class="ui item" href="{% url 'account_logout' %}">
-                Logout
+                LOGOUT
               </a>
             </div>
             {% else %}
             <a class="item" href="{% url 'account_signup' %}">
-              Register
+              REGISTER
             </a>
             <a class="item" href="{% url 'account_login' %}">
-              Login
+              LOGIN
             </a>
             {% endif%}
             <a class="item" href="{% url 'Item:profile' %}">
@@ -141,9 +141,9 @@ body {
     {% block content%}
 
     {% endblock content%}
-    <hr class="featurette-divider">
     <!-- FOOTER -->
-  <footer class="container pb-5">
+    <footer class="container pb-5 z-index" id="footer" onscroll="scroll()">
+    <hr class="featurette-divider w-100">
     <p class="float-end"><a href="#"><i class="icon angle double up" style="font-size: 22px; "></i> </a></p>
     <p>&copy; 2021 Next Marcker, rw. &middot; <a href="#">Privacy Policy</a> &middot; <a href="#">Term of use</a></p>
   </footer>
@@ -158,7 +158,12 @@ body {
         <a href="{% url 'Item:profile' %}" class="nav-link"><i class="bi-person-circle" ></i></a>
         </div>
     </div>
-
+<script>
+  const foot = document.querySelector('#footer');
+  const scroll = ()=>{
+    foot.addClass = 'fixed-button';
+  }
+</script>
     <script 
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 

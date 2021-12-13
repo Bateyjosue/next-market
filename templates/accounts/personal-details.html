@@ -13,41 +13,45 @@
                 <h4 class="ui dividing header">Personal User Information</h4>
                 <div class="field">
                     <div class="field" style="margin-top:0px; text-align:center;">
-                        <img class="ui medium circular image" src="{{user_details.picture.url}}" alt="">
+                        {% if user_details.picture %}
+                        <img class="ui medium circular image" src="{{user_details.picture.url}}" alt="" height="250px !important" width="250px !important">
+                    {% else %}
+                        <img class="ui right spaced avatar image" src="{% static 'images/user.png'%}" style="background-color: black;" height="200" width="200" alt="Profile Picture">
+                    {% endif %}
                         <input type="file" name="picture" id="" />
                     </div>
                     <label>Name</label>
                     <div class="two fields">
-                      <div class="field">
+                        <div class="field">
                         <input type="text" name="first-name" placeholder="First-Name" value="{{user_details.first_name}}">
-                      </div>
-                      <div class="field">
+                        </div>
+                        <div class="field">
                         <input type="text" name="last-name" placeholder="Last-Name" value="{{user_details.last_name}}">
-                      </div>
+                        </div>
                     </div>
                     <div class="field">
                         <label>Gender</label>
                         <select name="gender">
-                          <option value="">Gender</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
+                            <option value="">Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
                     <div class="field">
                         <label>Date Of Birth</label>
                         <input type="date" name="dob" id="" value="{{user_details.dob}}">
                     </div>
-                  </div>
-                  <h4 class="ui dividing header">User Contact Information</h4>
+                    </div>
+                    <h4 class="ui dividing header">User Contact Information</h4>
                 <div class="field">
                     <label>Contact</label>
                     <div class="two fields">
-                      <div class="field">
+                        <div class="field">
                         <input type="text" name="phone-number" placeholder="Phone Number" value="{{user_details.phone}}">
-                      </div>
-                      <div class="field">
+                        </div>
+                        <div class="field">
                         <input type="email" name="email-address" placeholder="Email Address" value="{{user_details.email}}">
-                      </div>
+                        </div>
                     </div>
                 </div>
                 <h4 class="ui dividing header">User Location Information</h4>
