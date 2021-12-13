@@ -79,9 +79,17 @@
             <div class="col-12 bg-light">
                 <div class="profile-photo mt-0" style="text-align: center;">
                     <a href="/" class="nav-link h3"><i class="bi-chevron-left mr-4 text-light" style="position: absolute;left: 10px;"></i></a>
-                    <img src="{{user.picture.url}}" alt="Profile Picture">
+                    {% if user.picture%}
+                        <img src="{{user.picture.url}}" alt="Profile Picture">
+                    {% else %}
+                        <img class="ui right spaced avatar image" src="{% static 'images/user.png'%}" style="background-color: black;" height="200" width="200" alt="Profile Picture">
+                    {% endif %}
                     <h6 class="h6 btn btn-primary mt-2">
-                        {{user.first_name}}-{{user.last_name}}
+                        {% if not user.first_name and not user.last_name %}
+                            {{user.email}}
+                        {% else %}
+                            {{user.first_name}}-{{user.last_name}}
+                        {% endif %}
                     </h6>
                     <br class="br "> 
                 </div>
