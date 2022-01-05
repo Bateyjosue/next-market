@@ -14,12 +14,19 @@
                 <div class="field">
                     <div class="field" style="margin-top:0px; text-align:center;">
                         {% if user_details.picture %}
-                        <img class="ui medium circular image" src="{{user_details.picture.url}}" alt="" height="250px !important" width="250px !important">
+                        <img class="ui medium circular image" src="{{user_details.picture.url}}" alt="{{user_details.picture.url}}" height="250px !important" width="250px !important">
+                        <i>
+                            {{user_details.picture.path}}
+                        </i>
                     {% else %}
                         <img class="ui right spaced avatar image" src="{% static 'images/user.png'%}" style="background-color: black;" height="200" width="200" alt="Profile Picture">
                     {% endif %}
-                        <input type="file" name="picture" id="" />
-                    </div>
+                    
+                </div>
+                <div class="field">
+                    <label for="">Picture</label>
+                    <input type="file" name="picture" id="" />
+                </div>
                     <label>Name</label>
                     <div class="two fields">
                         <div class="field">
@@ -29,17 +36,31 @@
                         <input type="text" name="last-name" placeholder="Last-Name" value="{{user_details.last_name}}">
                         </div>
                     </div>
-                    <div class="field">
-                        <label>Gender</label>
-                        <select name="gender">
-                            <option value="">Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
+                    <label>Gender</label>
+                    <div class=" field">
+                        <div class=" field">
+                            <select name="gender">
+                                {% if user_details.sex == 'Male' %}
+                                    <option value="Male"  selected>Male</option>
+                                    <option value="Female">Female</option>
+                                {% elif user_details.sex == 'Female' %}
+                                    <option value="Male">Male</option>
+                                    <option value="Female"  selected>Female</option>
+                                    {% elif user_details.sex == 'Others' %}
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                {%endif%}
+                            </select>
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Date Of Birth</label>
-                        <input type="date" name="dob" id="" value="{{user_details.dob}}">
+                    <label>Date Of Birth</label>
+                    <div class="two fields">
+                        <div class="field">
+                            <input type="text" name="dob-txt" id="" value="{{user_details.dob}}" disabled>
+                        </div>
+                        <div class="field">
+                            <input type="date" name="dob" id="" value="{{user_details.dob|date:'yyyy-MM-dd'}}" format="yyyy/MM/dd" min="1960-01-01" max="2004-01-01" >
+                        </div>
                     </div>
                     </div>
                     <h4 class="ui dividing header">User Contact Information</h4>
